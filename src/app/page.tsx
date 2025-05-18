@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import Words from "./words";
+import Words from "./words/Words";
 
 export default async function Home() {
   const queryClient = new QueryClient();
