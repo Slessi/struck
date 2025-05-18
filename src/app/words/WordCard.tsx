@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { Button } from "../common/Button";
+import { Card } from "../common/Card";
 
 export function WordCard({
   word,
@@ -15,11 +16,10 @@ export function WordCard({
   onToggleAutoRefetch: () => void;
 }) {
   return (
-    <div className="border border-solid rounded-md px-4 py-2 border-gray-700 flex flex-col gap-2 items-center">
-      <h6 className="text-sm font-medium">✨Word of the moment✨</h6>
+    <Card title="Word of the moment" contentClassName="flex flex-col gap-2">
       <p className="text-2xl font-bold text-center italic">"{word}"</p>
 
-      <div className="flex gap-2">
+      <div className="flex flex-col sm:flex-row gap-2">
         <Button type="button" onClick={onRefresh} disabled={isRefreshing}>
           <span
             className={clsx("inline-block", isRefreshing && "animate-spin")}
@@ -38,6 +38,6 @@ export function WordCard({
           Auto-refetch
         </label>
       </div>
-    </div>
+    </Card>
   );
 }

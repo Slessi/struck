@@ -52,8 +52,8 @@ export default function Words() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 items-center">
-        <div className="flex gap-8">
+      <main className="flex flex-col gap-4 items-center px-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <WordCard
             word={data?.word}
             isRefreshing={isFetching}
