@@ -13,6 +13,9 @@ export default function Words() {
   const { data, isLoading, isFetching, refetch } = useQuery<{
     word: string;
   }>({
+    // Assignment references cacheTime, but its been renamed to gcTime
+    gcTime: 10_000, // Remove query from cache after 10 seconds of no query being mounted
+    staleTime: 1_000, // Mark data as stale after 1 second
     queryKey: ["random-word"],
     refetchInterval: isAutoRefetchEnabled ? 10_000 : false,
     refetchIntervalInBackground: true,
