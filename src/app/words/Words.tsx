@@ -7,12 +7,13 @@ import { useState } from "react";
 export default function Words() {
   // Maintaining own error state as react-query clears error state on refetch
   const [error, setError] = useState<Error | null>(null);
+  const [isAutoRefetchEnabled, setIsAutoRefetchEnabled] = useState(true);
 
   const { data, isLoading, isFetching, refetch } = useQuery<{
     word: string;
   }>({
     queryKey: ["random-word"],
-    refetchInterval: 10_000,
+    refetchInterval: isAutoRefetchEnabled ? 10_000 : false,
     refetchIntervalInBackground: true,
     queryFn: async () => {
       const response = await fetch("/api/random-word");
@@ -45,7 +46,9 @@ export default function Words() {
         <WordCard
           word={data?.word}
           isRefreshing={isFetching}
+          isAutoRefetchEnabled={isAutoRefetchEnabled}
           onRefresh={refetch}
+          onToggleAutoRefetch={() => setIsAutoRefetchEnabled((p) => !p)}
         />
 
         {/* This will never show as I prefetch the word, but leaving here for reference */}
