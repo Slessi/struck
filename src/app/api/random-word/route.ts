@@ -10,5 +10,5 @@ export async function GET(request: Request) {
     return Response.json({ error: "Failed to fetch word" }, { status: 500 });
   }
 
-  return Response.json({ delay, word: getRandomWord() });
+  return Response.json(getRandomWord());
 }
