@@ -17,7 +17,7 @@ export function WordCard({
 }) {
   return (
     <Card title="Word of the moment" contentClassName="flex flex-col gap-2">
-      <p className="text-2xl font-bold text-center italic">"{word}"</p>
+      <p className="text-2xl font-bold text-center italic">&quot;{word}&quot;</p>
 
       <div className="flex flex-col sm:flex-row gap-2">
         <Button type="button" onClick={onRefresh} disabled={isRefreshing}>

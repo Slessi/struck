@@ -1,6 +1,6 @@
 import { getRandomWord } from "@/data/random-word";
 
-export async function GET(request: Request) {
+export async function GET() {
   // a slight, random artificial delay to simulate network conditionss
   const delay = Math.round(Math.random() * 1000 + 500);
   await new Promise((r) => setTimeout(r, delay));

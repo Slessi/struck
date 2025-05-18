@@ -6,7 +6,7 @@ export function WordHistory({ words }: { words: string[] }) {
       <ul>
         {words.map((word) => (
           <li className="font-bold italic text-sm" key={word}>
-            "{word}"
+            &quot;{word}&quot;
           </li>
         ))}
       </ul>
