@@ -1,8 +1,9 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { WordCard } from "./WordCard";
 import { useState } from "react";
+import { WordCard } from "./WordCard";
+import { WordHistory } from "./WordHistory";
 
 export default function Words() {
   // Maintaining own error state as react-query clears error state on refetch
@@ -28,6 +29,8 @@ export default function Words() {
         }
 
         setError(null);
+        setWordHistory((p) => [...new Set([data.word, ...p])].slice(0, 5));
+
         return data;
       } catch (error) {
         throw new Error(`Invalid server response: ${error}`);
@@ -40,16 +43,27 @@ export default function Words() {
     },
   });
 
+  const [wordHistory, setWordHistory] = useState<string[]>(
+    [data?.word].filter((s) => typeof s === "string")
+  );
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <WordCard
-          word={data?.word}
-          isRefreshing={isFetching}
-          isAutoRefetchEnabled={isAutoRefetchEnabled}
-          onRefresh={refetch}
-          onToggleAutoRefetch={() => setIsAutoRefetchEnabled((p) => !p)}
-        />
+    <div className="flex flex-col items-center justify-center min-h-screen font-[family-name:var(--font-geist-sans)]">
+      <main className="flex flex-col gap-8 items-center">
+        <div className="flex gap-8">
+          <WordCard
+            word={data?.word}
+            isRefreshing={isFetching}
+            isAutoRefetchEnabled={isAutoRefetchEnabled}
+            onRefresh={refetch}
+            onToggleAutoRefetch={() => setIsAutoRefetchEnabled((p) => !p)}
+          />
+
+          <WordHistory
+            // Excluding the first word as it's the current word
+            words={wordHistory.slice(1)}
+          />
+        </div>
 
         {/* This will never show as I prefetch the word, but leaving here for reference */}
         {isLoading && <p className="text-sm">Loading first word...</p>}
